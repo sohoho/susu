@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!--  这里需要通过接口来调用映射文件中的SQL语句，那么这个工作空间的名称就不能瞎写，必须写成接口的权限定名 -->
+<mapper namespace="com.lx.dao.GoodsDao">
+<!-- resultMap是自定义的返回值类型       type:（一般）为实体类型  id:(自定义)唯一标识
+		<id>：主键标签     column:列（表）  property：属性（实体） javaType：对应的Java类型
+		<result/> :列标签      column:列（表）  property：属性（实体） javaType：对应的Java类型
+ -->
+ <resultMap type="com.lx.beans.student" id="kk">
+ 	<id column="id" property="id"/>
+ 	<result column="kec" property="kec"/>
+ 	<result column="name" property="name"/>
+ 	 	<result column="name" property="name"/>
+ 	 	<result column="riqi" property="riqi"/>
+ 	<association property="kec2" javaType="com.lx.beans.kec">
+ 	<id column="kid" property="kid"/>
+ 	<result column="kpingf" property="kpingf"/>
+ 	<result column="kname" property="kname"/>
+ 	
+ 	</association>
+ 
+ </resultMap>
+ 
+ <select id="getlist" resultMap="kk">
+ 		select * from t_student s left join t_kec k on s.kid=k.kid
+ 
+ </select>
+ 
+ <select id="getcount" resultType="int">
+       select count(*) from t_kec
+ </select>
+ 
+ <select id="huoquid" resultType="com.lx.beans.student">
+  		select * from t_student s left join t_kec k on s.kid=k.kid where s.id=#{id}
+ 
+ </select>
+ 
+ <insert id="addjia">
+    insert into t_kec value(null,#{kpingf},#{kname})
+ </insert>
+ 
+ <select id="getkec" resultType="com.lx.beans.kec">
+    select * from t_kec
+ </select>
+
+ 
+</mapper>
